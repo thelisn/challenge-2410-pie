@@ -14,7 +14,8 @@
 <template>
   <tr class="list-item"
       role="button">
-    <td v-for="column in props.columns">
+    <td v-for="column in props.columns"
+        :key="`item-${props.itemData.id}-${column.id}`">
       {{ props.itemData[column.id] }}
     </td>
   </tr>

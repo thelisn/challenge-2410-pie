@@ -45,6 +45,7 @@ const doInsert = () => {
 
   <div class="insert-container">
     <section v-for="column in props.columns"
+             :key="`insert-${column.id}`"
              class="form">
       <label :for="'insert-' + column.id">
         {{ column.name }}

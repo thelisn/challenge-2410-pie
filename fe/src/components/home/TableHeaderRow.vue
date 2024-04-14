@@ -50,6 +50,7 @@
 <template>
   <tr class="header-name">
     <th v-for="column in props.columns"
+        :key="`th-${column.id}`"
         :class="column.style">
       <span>{{ column.name }}</span>
       <button v-if="column.sort"
@@ -67,7 +68,8 @@
     </th>
   </tr>
   <tr class="header-filter">
-    <td v-for="column in props.columns">
+    <td v-for="column in props.columns"
+        :key="`td-${column.id}`">
       <template v-if="column.filter">
         <template v-if="column.filter === 'string'">
           <input type="text"

@@ -7,7 +7,7 @@
   import TableHeaderRow from '@/components/home/TableHeaderRow.vue'
   import TableItemRow from '@/components/home/TableItemRow.vue'
 
-  import Insert from '@/components/home/Insert.vue'
+  import HomeInsert from '@/components/home/HomeInsert.vue'
 
   const columns = reactive<[Column]>([
     { id: 'title', name: '제목', filter: 'string', sort: true, style: 'px200', required: true },
@@ -31,18 +31,18 @@
         .then((response: { data: any }) => {
           listData.value = response.data.list
         })
-        .catch((e: Error) => {
+        .catch(() => {
           alert('오류가 발생했습니다.')
         })
   }
 
   const postItem = (data: any) => {
     HomeApi.postInsert(data)
-        .then((response: { data: any }) => {
+        .then(() => {
           isShowInsert.value = false
           getList()
         })
-        .catch((e: Error) => {
+        .catch(() => {
           alert('오류가 발생했습니다.')
         })
   }
@@ -104,16 +104,20 @@
         </thead>
         <tbody>
           <tr class="gap top">
-            <td v-for="gap in columns.length" />
+            <td v-for="gap in columns.length"
+                :key="`gap1${gap}`" />
           </tr>
           <tr class="gap">
-            <td v-for="gap in columns.length" />
+            <td v-for="gap in columns.length"
+                :key="`gap2${gap}`" />
           </tr>
           <TableItemRow v-for="itemData in listData"
+                        :key="`item-${itemData.id}`"
                         :columns="columns"
                         :itemData="itemData" />
           <tr class="gap">
-            <td v-for="gap in columns.length" />
+            <td v-for="gap in columns.length"
+                :key="`gap3${gap}`" />
           </tr>
         </tbody>
       </table>
@@ -127,8 +131,8 @@
               @click="showInsert(false)">
         <FontAwesomeIcon :icon="['fas', 'close']" />
       </button>
-      <Insert :columns="columns"
-              @doInsert="doInsert" />
+      <HomeInsert :columns="columns"
+                  @doInsert="doInsert" />
     </div>
   </div>
 </template>
