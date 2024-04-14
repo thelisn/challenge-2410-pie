@@ -1,3 +1,4 @@
+require('dotenv').config()
 const path = require('path')
 
 const username = process.env.MYSQL_USERNAME || 'root'
