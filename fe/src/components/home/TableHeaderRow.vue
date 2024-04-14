@@ -8,10 +8,9 @@
     searchKeyword: HomeFilter,
     sort: Sort
   }
-
   const props = defineProps<Props>()
 
-  const keyword: HomeFilter = reactive({});
+  const keyword = reactive<HomeFilter>({});
   for (const column of props.columns) {
     if (column.filter) {
       if (column.filter === 'date') {

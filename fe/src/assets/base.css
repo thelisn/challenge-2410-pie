@@ -53,7 +53,7 @@ body {
     color: var(--light-color-01);
 }
 
-input, button {
+input {
     background-color: var(--dark-color-03);
     color: var(--light-color-01);
 }
@@ -66,4 +66,30 @@ input[type='date']::before {
 input[type='date']:focus::before,
 input[type='date']:valid::before {
     display: none;
+}
+
+button.btn {
+    background-color: var(--primary-color-05);
+    color: var(--light-color-01);
+    cursor: pointer;
+    height: var(--margin-04);
+    line-height: var(--margin-04);
+    padding: 0 var(--margin-01);
+    vertical-align: middle;
+    border: none;
+}
+
+button.btn:focus,
+button.btn:hover {
+    background-color: var(--primary-color-06);
+}
+
+button.btn:active {
+    background-color: var(--primary-color-07);
+    color: var(--light-color-03);
+}
+
+button.btn:disabled {
+    background-color: var(--dark-color-06);
+    cursor: default;
 }

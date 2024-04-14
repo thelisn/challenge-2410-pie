@@ -8,7 +8,8 @@ export type Column = {
   name: String,
   filter?: Boolean | String,
   sort?: Boolean,
-  width?: String
+  width?: String,
+  required?: Boolean
 }
 export type Sort = {
   id: Boolean | String,
