@@ -1,1 +1,69 @@
+@import url(//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSansNeo.css);
+
 @import 'reset.css';
+
+:root {
+    --dark-color-01: #111111;
+    --dark-color-02: #222222;
+    --dark-color-03: #333333;
+    --dark-color-04: #444444;
+    --dark-color-05: #555555;
+    --dark-color-06: #666666;
+
+    --light-color-01: #ffffff;
+    --light-color-02: #eeeeee;
+    --light-color-03: #dddddd;
+    --light-color-04: #cccccc;
+    --light-color-05: #bbbbbb;
+    --light-color-06: #aaaaaa;
+
+    --primary-color-01: #f2e8ff;
+    --primary-color-02: #d8b7fd;
+    --primary-color-03: #bc86fc;
+    --primary-color-04: #9e55fd;
+    --primary-color-05: #8023fd;
+    --primary-color-06: #6200ee;
+    --primary-color-07: #4b00d2;
+    --primary-color-08: #3800b3;
+    --primary-color-09: #270097;
+    --primary-color-10: #190078;
+
+    --margin-01: 8px;
+    --margin-02: 16px;
+    --margin-03: 24px;
+    --margin-04: 32px;
+    --margin-05: 40px;
+
+    --font-size-01: 0.7em;
+    --font-size-02: 0.9em;
+    --font-size-03: 1em;
+    --font-size-04: 1.14em;
+    --font-size-05: 1.5em;
+    --font-size-06: 2.28em;
+    --font-size-07: 3em;
+    --font-size-08: 5em;
+}
+
+* {
+    font-family: 'Spoqa Han Sans Neo', 'sans-serif' !important;
+}
+
+body {
+    background: var(--dark-color-01);
+    color: var(--light-color-01);
+}
+
+input, button {
+    background-color: var(--dark-color-03);
+    color: var(--light-color-01);
+}
+
+input[type='date']::before {
+    content: attr(placeholder);
+    width: 100%;
+}
+
+input[type='date']:focus::before,
+input[type='date']:valid::before {
+    display: none;
+}
