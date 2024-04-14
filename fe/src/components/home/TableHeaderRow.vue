@@ -10,7 +10,7 @@
   }
   const props = defineProps<Props>()
 
-  const keyword = reactive<HomeFilter>({});
+  const keyword = reactive<HomeFilter>({})
   for (const column of props.columns) {
     if (column.filter) {
       if (column.filter === 'date') {
@@ -30,11 +30,11 @@
 
   const doSort = (id: Boolean) => {
     emit('doSort', id)
-  };
+  }
 
   const doSearch = () => {
     emit('doSearch', keyword)
-  };
+  }
 
   const doResetSearch = (id: String) => {
     if (props.columns.find(el => el.id === id).filter === 'date') {
@@ -44,7 +44,7 @@
       delete keyword[id]
     }
     doSearch()
-  };
+  }
 </script>
 
 <template>

@@ -1,7 +1,8 @@
-const { Item } = require('../models')
+const { Item, Sequelize } = require('../models')
+const Op = Sequelize.Op
 
 exports.itemList = async (req, res) => {
-  const { filter } = req.body
+  const { filter, sort } = req.body
 
   try {
     const filters = {}
@@ -9,7 +10,7 @@ exports.itemList = async (req, res) => {
     if (filter) {
       if (filter.title) {
         filters.title = {
-          $like: '%' + filter.title + '%'
+          [Op.like]: `%${filter.title}%`
         }
       }
 
@@ -17,15 +18,26 @@ exports.itemList = async (req, res) => {
         filters.date = {}
 
         if (filter.date.start) {
-          filters.date.$gte = new Date(filter.date.start);
+          filters.date[Op.gte] = filter.date.start
         }
         if (filter.date.end) {
-          filters.date.$lte = new Date(filter.date.start);
+          filters.date[Op.lte] = filter.date.end
         }
       }
     }
 
-    let items = await Item.findAll(filters)
+    const sorts = []
+
+    if (sort) {
+      if (sort.id) {
+        sorts.push([sort.id, sort.order])
+      }
+    }
+
+    let items = await Item.findAll({
+      where: filters,
+      order: sorts
+    })
 
     return res.status(200).json({
       list: items

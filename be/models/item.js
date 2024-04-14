@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Item.init({
     title: DataTypes.STRING,
-    date: DataTypes.DATE,
+    date: DataTypes.DATEONLY,
     summary: DataTypes.STRING
   }, {
     sequelize,

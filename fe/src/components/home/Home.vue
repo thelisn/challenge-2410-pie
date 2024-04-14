@@ -1,5 +1,6 @@
 <script setup lang="ts">
   import type { Column, Sort, HomeData, HomeFilter } from '@/types'
+  import HomeApi from '@/api/home'
 
   import { ref, reactive } from 'vue'
 
@@ -15,21 +16,36 @@
   ]);
 
   const sort = reactive<Sort>({
-    id: false,
-    order: 'asc'
+    id: 'date',
+    order: 'desc'
   })
 
-  const listData = ref<HomeData>([
-    { id: 1, title: "제목1", date: "2024-01-26", summary: "요약1" },
-    { id: 2, title: "제목2", date: "2024-02-26", summary: "요약2" },
-    { id: 3, title: "제목3", date: "2024-03-26", summary: "요약3" },
-    { id: 4, title: "제목4", date: "2024-04-26", summary: "요약4" },
-    { id: 5, title: "제목5", date: "2024-05-26", summary: "요약5" }
-  ]);
+  let listData = ref<[HomeData]>([])
 
-  const searchKeyword = reactive<HomeFilter>({});
+  const searchKeyword = reactive<HomeFilter>({})
 
-  const isShowInsert = ref<Boolean>(false);
+  const isShowInsert = ref<Boolean>(false)
+
+  const getList = () => {
+    HomeApi.getList({ filter: searchKeyword, sort })
+        .then((response: { data: any }) => {
+          listData.value = response.data.list
+        })
+        .catch((e: Error) => {
+          alert('오류가 발생했습니다.')
+        })
+  }
+
+  const postItem = (data: any) => {
+    HomeApi.postInsert(data)
+        .then((response: { data: any }) => {
+          isShowInsert.value = false
+          getList()
+        })
+        .catch((e: Error) => {
+          alert('오류가 발생했습니다.')
+        })
+  }
 
   const doSort = (id: Boolean) => {
     if (sort.id === id) {
@@ -38,9 +54,8 @@
       sort.id = id
       sort.order = 'desc'
     }
-
-    console.log('doSort: ', sort.id, sort.order)
-  };
+    getList()
+  }
 
   const doSearch = (keyword: HomeFilter) => {
     for (const column of columns) {
@@ -49,19 +64,20 @@
       }
     }
 
-    console.log('doSearch: ', keyword)
-  };
+    getList()
+  }
 
   const showInsert = (show: Boolean) => {
     if (show || confirm('정말로 닫으시겠습니까?')) {
       isShowInsert.value = show
     }
-  };
+  }
 
   const doInsert = (data: HomeData) => {
-    isShowInsert.value = false
-    console.log('doInsert: ', data)
-  };
+    postItem(data)
+  }
+
+  getList()
 </script>
 
 <template>
